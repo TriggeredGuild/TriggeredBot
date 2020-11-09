@@ -23,7 +23,7 @@ db.prepare(`
   * -------------------- */
 
 const users = {
-	inserRow: db.prepare(`
+	insertRow: db.prepare(`
 		INSERT OR IGNORE INTO users (
 			user_id,
 			user_name,
@@ -40,4 +40,6 @@ const users = {
 	updateUser: db.prepare('UPDATE users SET user_name = ?, user_discriminator = ? WHERE user_id = ?;')
 };
 
-module.exports = users
+module.exports = {
+	users
+};

@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const { readdir } = require('fs');
+const { join, resolve } = require('path');
 
 class Client extends Discord.Client {
 	constructor(config, options = {}) {
@@ -7,7 +9,7 @@ class Client extends Discord.Client {
 		// Create logger for client instance
 		this.logger = require('./utils/logger.js');
 
-		// Create database
+		// Create database for client instance
 		this.db = require('./utils/db.js');
 
 		this.token = config.token;
@@ -15,6 +17,23 @@ class Client extends Discord.Client {
 		this.prefix = config.prefix;
 
 		this.logger.info('Initializing...');
+	}
+
+	loadEvents(path) {
+		readdir(path, (err, files) => {
+			if (err) this.logger.error(err);
+			files = files.filter(f => f.split('.').pop() === 'js');
+			if (files.length === 0) return this.logger.warn('No events found');
+			this.logger.info(`${files.length} event(s) found...`);
+			files.forEach(f => {
+				const eventName = f.substring(0, f.indexOf('.'));
+				const event = require(resolve(__basedir, join(path, f)));
+				super.on(eventName, event.bind(null, this));
+				delete require.cache[require.resolve(resolve(__basedir, join(path, f)))]; // Clear cache
+				this.logger.info(`Loading event: ${eventName}`);
+			});
+		});
+		return this;
 	}
 
 	isOwner(user) {

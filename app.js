@@ -8,6 +8,7 @@ const client = new Client(config);
 
 // Initialize client
 function init() {
+	client.loadEvents('./src/events');
 	client.login(client.token);
 }
 
