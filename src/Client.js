@@ -4,9 +4,14 @@ class Client extends Discord.Client {
 	constructor(config, options = {}) {
 		super(options);
 
+		// Create logger for client instance
+		this.logger = require('./utils/logger.js');
+
 		this.token = config.token;
 		this.ownerId = config.ownerId;
 		this.prefix = config.prefix;
+
+		this.logger.info('Initializing...');
 	}
 
 	isOwner(user) {
