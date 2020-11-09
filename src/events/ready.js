@@ -1,6 +1,7 @@
 module.exports = async (client) => {
 	client.logger.info('Updating database...');
 
+	// Really strange way of doing this, need to come up with a solution to store the guild id locally
 	for (const guild of client.guilds.cache.values()) {
 		guild.members.cache.forEach(member => {
 			client.db.users.insertRow.run(
