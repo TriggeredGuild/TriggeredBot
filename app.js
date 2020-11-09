@@ -14,9 +14,10 @@ function init() {
 init();
 
 // All of this is just the testing garbage Jon had running previously, just pasted it in with a modification the prefix variable
+// Updated to reflect now logger, just as a test
 
 client.once('ready', () => {
-    console.log('Triggered Bot is Online.')
+    client.logger.info('Triggered Bot is now running.');
 });
 
 client.on('message', message => {
