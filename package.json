@@ -1,0 +1,27 @@
+{
+  "name": "triggeredbot",
+  "version": "1.0.0",
+  "description": "Triggered Guilds discord bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TriggeredGuild/TriggeredBot.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TriggeredGuild/TriggeredBot/issues"
+  },
+  "homepage": "https://github.com/TriggeredGuild/TriggeredBot#readme",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "eslint": "^7.13.0"
+  }
+}
