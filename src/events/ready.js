@@ -13,4 +13,6 @@ module.exports = async (client) => {
 			);
 		});
 	}
+
+	client.logger.info('Triggered Bot is now running.');
 };

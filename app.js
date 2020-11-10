@@ -16,10 +16,7 @@ init();
 
 // All of this is just the testing garbage Jon had running previously, just pasted it in with a modification the prefix variable
 // Updated to reflect now logger, just as a test
-
-client.once('ready', () => {
-    client.logger.info('Triggered Bot is now running.');
-});
+// Removed the on 'ready' event as it is now captured elsewhere
 
 client.on('message', message => {
     if(!message.content.startsWith(client.prefix) || message.author.bot) {
