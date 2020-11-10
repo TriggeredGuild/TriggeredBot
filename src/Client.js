@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { readdir } = require('fs');
+const { readdir, readdirSync } = require('fs');
 const { join, resolve } = require('path');
 
 class Client extends Discord.Client {
@@ -11,6 +11,8 @@ class Client extends Discord.Client {
 
 		// Create database for client instance
 		this.db = require('./utils/db.js');
+
+		this.commands = new Discord.Collection();
 
 		this.token = config.token;
 		this.ownerId = config.ownerId;
@@ -33,6 +35,27 @@ class Client extends Discord.Client {
 				this.logger.info(`Loading event: ${eventName}`);
 			});
 		});
+		return this;
+	}
+
+	loadCommands(path) {
+		this.logger.info('Loading commands...');
+
+		readdirSync(path).filter(f => !f.endsWith('.js')).forEach(dir => {
+			const commands = readdirSync(resolve(__basedir, join(path, dir))).filter(f => f.endsWith('.js'));
+			commands.forEach(f => {
+				const Command = require(resolve(__basedir, join(path, dir, f)));
+				const command = new Command(this);
+				if (command.name && !command.disabled) {
+					this.commands.set(command.name, command);
+				} else {
+					this.logger.warn('${f} failed to load.');
+					return;
+				}
+			});
+		});
+
+		this.logger.info('Commands Loaded Succesfully.');
 		return this;
 	}
 
