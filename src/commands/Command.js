@@ -15,12 +15,20 @@ class Command {
 		throw new Error('The ${this.name} command has no run() method');
 	}
 
+	getRoleFromMention(message, mention) {
+		if (!mention) return;
+		const matches = mention.match(/^<@&(\d+)>$/);
+		if (!matches) return;
+		const id = matches[1];
+		return message.guild.roles.cache.get(id);
+	}
+
 	sendErrorMessage(message, errorType, reason, errorMessage = null) {
 		errorType = this.errorTypes[errorType];
 		const prefix = this.client.prefix;
 		const embed = new MessageEmbed()
-			.setAuthor(`${message.author.tag}`, message.author.displayAvatarUrl({ dynamic: true }))
-			.setTitle(`${fail} Error: \`${this.name}\``)
+			.setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
+			.setTitle(`Error: \`${this.name}\``)
 			.setDescription(`\`\`\`diff\n- ${errorType}\n+ ${reason}\`\`\``)
 			.addField('Usage', `\`${prefix}${this.usage}\``)
 			.setTimestamp()
