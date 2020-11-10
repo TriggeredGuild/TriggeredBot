@@ -18,6 +18,8 @@ class Client extends Discord.Client {
 		this.ownerId = config.owner_id;
 		this.prefix = config.prefix;
 		this.autoRoleId = config.auto_role_id;
+		this.welcomeChannelId = config.welcome_channel_id;
+		this.welcomeMessage = config.welcome_message;
 
 		this.logger.info('Initializing...');
 	}

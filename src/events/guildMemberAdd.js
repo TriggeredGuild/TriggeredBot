@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = async (client, member) => {
 	// Log event
 	client.logger.info(`${member.guild.name}: ${member.user.tag} has joined the server.`);
@@ -11,6 +13,15 @@ module.exports = async (client, member) => {
 		} catch (err) {
 			client.logger.error(`${member.guild.name}: Unable to assign the automatic role, please ensure I have the Manage Roles permission.`);
 		}
+	}
+
+	// Welcome Message
+	const welcomeChannel = member.guild.channels.cache.get(client.welcomeChannelId);
+	let welcomeMessage = client.welcomeMessage;
+	if (welcomeChannel && welcomeMessage) {
+		welcomeMessage = welcomeMessage
+			.replace(/member/gi, member.user.username);
+		welcomeChannel.send(new MessageEmbed().setDescription(welcomeMessage).setColor(member.guild.me.displayHexColor));
 	}
 
 	// Assign random color

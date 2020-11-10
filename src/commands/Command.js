@@ -23,6 +23,14 @@ class Command {
 		return message.guild.roles.cache.get(id);
 	}
 
+	getChannelFromMention(message, mention) {
+		if (!mention) return;
+		const matches = mention.match(/^<#(\d+)>$/);
+		if (!matches) return;
+		const id = matches[1];
+		return message.guild.channels.cache.get(id);
+	}
+
 	sendErrorMessage(message, errorType, reason, errorMessage = null) {
 		errorType = this.errorTypes[errorType];
 		const prefix = this.client.prefix;
