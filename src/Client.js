@@ -15,8 +15,9 @@ class Client extends Discord.Client {
 		this.commands = new Discord.Collection();
 
 		this.token = config.token;
-		this.ownerId = config.ownerId;
+		this.ownerId = config.owner_id;
 		this.prefix = config.prefix;
+		this.autoRoleId = config.auto_role_id;
 
 		this.logger.info('Initializing...');
 	}

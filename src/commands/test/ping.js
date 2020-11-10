@@ -3,7 +3,8 @@ const Command = require('../Command.js');
 module.exports = class PingCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'ping'
+			name: 'ping',
+			usage: 'ping',
 		});
 	}
 
