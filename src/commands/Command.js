@@ -2,9 +2,12 @@ const { MessageEmbed } = require('discord.js');
 
 class Command {
 	constructor(client, options) {
-		this.client = client
+		// Validate all options that were passed to the constructor
+		this.constructor.validateOptions(client, options);
 
-		this.name = options.name
+		this.client = client;
+
+		this.name = options.name;
 		this.usage = options.usage || options.name;
 
 		// Array of potential command error types
