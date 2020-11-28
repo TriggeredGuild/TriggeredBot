@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { readdir, readdirSync } = require('fs');
 const { join, resolve } = require('path');
 var scheduler = require('node-schedule');
-const PersistentEvent = require('./schedule/PersistentEvent.js');
+const ScheduledEvent = require('./schedule/ScheduledEvent.js');
 
 class Client extends Discord.Client {
 	constructor(config, options = {}) {
@@ -26,7 +26,7 @@ class Client extends Discord.Client {
 		// Scheduled Event Testing
 		this.logger.info('Scheduling a test event...');
 		var date = new Date(2020, 10, 12, 10, 11, 0);
-		var testEvent = new PersistentEvent(this, date, 'Testing', [ 'none', 'test' ], true);
+		var testEvent = new ScheduledEvent(this, date, 'Testing', [ 'none', 'test' ], true);
 		scheduler.scheduleJob(testEvent.when, function() {
 			testEvent.run(this, testEvent.what, testEvent.args);
 		});
